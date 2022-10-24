@@ -1,0 +1,26 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
+  },
+  "eslint.validate": ["javascript", "typescript"],
+  "editor.formatOnSave": true,
+  "[javascript]": {
+    "editor.formatOnSave": false
+  },
+  "[typescript]": {
+    "editor.formatOnSave": true
+  },
+  "[html]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": false
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "thunder-client.workspaceRelativePath": "./docs/api-docs",
+  "thunder-client.saveToWorkspace": true,
+  "thunder-client.httpVersion": "HTTP/2",
+  "javascript.validate.enable": true,
+  "typescript.tsserver.experimental.enableProjectDiagnostics": true
+}
