@@ -34,8 +34,9 @@ export const COUNTRY_MANAGEMENT_ROUTE = 'country-management'
 
 // Organization routes
 export const ORGANIZATION_MANAGEMENT_ROUTE = 'organization-management'
+export const ORGANIZATION_BRANCHES_ROUTE = 'branches'
 
-// Organization routes
+// Question routes
 export const QUESTION_MANAGEMENT_ROUTE = 'question-management'
 
 // Report routes

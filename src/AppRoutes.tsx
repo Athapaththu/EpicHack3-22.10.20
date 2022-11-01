@@ -7,6 +7,7 @@ import {
   FAQ_PERMISSION,
   HELP_PERMISSION,
   HOME_PERMISSION,
+  ORGANIZATION_BRANCHES_PERMISSION,
   ORGANIZATION_MANAGEMENT_PERMISSION,
   PROFILE_ACTIVITY_PERMISSION,
   PROFILE_EMPLOYMENT_PERMISSION,
@@ -27,6 +28,7 @@ import {
   FAQ_ROUTE,
   HELP_ROUTE,
   HOME_ROUTE,
+  ORGANIZATION_BRANCHES_ROUTE,
   ORGANIZATION_MANAGEMENT_ROUTE,
   PROFILE_ACTIVITY_ROUTE,
   PROFILE_EMPLOYMENT_ROUTE,
@@ -88,7 +90,9 @@ const CountryManagement = lazy(
 const OrganizationManagement = lazy(
   () => import('./modules/organizations/pages/OrganizationManagement'),
 )
-
+const OrganizationBranches = lazy(
+  () => import('./modules/organizations/components/OrganizationBranches'),
+)
 // questions
 const QuestionManagement = lazy(
   () => import('./modules/questions/pages/QuestionManagement'),
@@ -181,10 +185,16 @@ const AppRoutes = (): JSX.Element => {
           element={<CountryManagement />}
           permission={COUNTRY_MANAGEMENT_PERMISSION}
         />
+
         <PrivateRoute
           path={ORGANIZATION_MANAGEMENT_ROUTE}
           element={<OrganizationManagement />}
           permission={ORGANIZATION_MANAGEMENT_PERMISSION}
+        />
+        <PrivateRoute
+          path={ORGANIZATION_BRANCHES_ROUTE}
+          element={<OrganizationBranches />}
+          permission={ORGANIZATION_BRANCHES_PERMISSION}
         />
         <PrivateRoute
           path={QUESTION_MANAGEMENT_ROUTE}

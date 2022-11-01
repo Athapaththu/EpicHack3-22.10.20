@@ -1,30 +1,34 @@
 /* eslint-disable prettier/prettier */
+import ForwardIcon from '@mui/icons-material/Forward'
 import { LoadingButton, TabContext, TabList, TabPanel } from '@mui/lab'
 import {
+  Avatar,
   Box,
   Button,
+  Card,
+  CardActionArea,
+  CardContent,
+  CardHeader,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
   Grid,
-  MenuItem,
   Tab,
   TextField,
+  Typography,
 } from '@mui/material'
 import { useFormik } from 'formik'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { Link as RouterLink } from 'react-router-dom'
 import * as Yup from 'yup'
 
+import {
+  ORGANIZATION_BRANCHES_ROUTE,
+  ROOT_ROUTE,
+} from '../../../base/constants/routes'
 import { IAddress } from '../../../shared/types/address'
-
-const ListOfBranches = [
-  'Dependent Branches',
-  'Independent Branch',
-  'Home Branch',
-  'Foreign Branch',
-]
 
 type OrganizationAddressProps = {
   // eslint-disable-next-line no-unused-vars
@@ -138,7 +142,6 @@ const OrganizationAddress = ({
                       <Tab label="List of Branches" value="2" />
                     </TabList>
                   </Box>
-
                   {/* tab start */}
                   {/* tab 1 */}
                   <TabPanel value="1">
@@ -332,6 +335,18 @@ const OrganizationAddress = ({
                           }
                         />
                       </DialogContent>
+                      <DialogActions>
+                        <Button onClick={onClose}>{t('common.cancel')}</Button>
+                        <LoadingButton
+                          loading={processing}
+                          type="submit"
+                          variant="contained"
+                        >
+                          {editMode
+                            ? t('organizationManagement.modal.edit.action')
+                            : t('organizationManagement.modal.add.action')}
+                        </LoadingButton>
+                      </DialogActions>
                     </form>
                   </TabPanel>
                   {/* tab 2 */}
@@ -340,39 +355,35 @@ const OrganizationAddress = ({
                       <DialogContent>
                         <Grid item xs={12} md={8} marginTop={3}>
                           <Box>
-                            <Box sx={{ width: '300px', typography: 'body1' }}>
+                            <Box
+                              sx={{ width: '100%', typography: 'body1', mt: 3 }}
+                            >
                               <DialogContent>
-                                <TextField
-                                  margin="normal"
-                                  required
-                                  id="ListOfBranch"
-                                  disabled={processing}
-                                  fullWidth
-                                  select
-                                  label={t(
-                                    'organizationManagement.form.ListOfBranch.label',
-                                  )}
-                                  name="ListOfBranch"
-                                  value={formik.values.ListOfBranch}
-                                  onChange={formik.handleChange}
-                                  error={
-                                    formik.touched.ListOfBranch &&
-                                    Boolean(formik.errors.ListOfBranch)
-                                  }
-                                  helperText={
-                                    formik.touched.ListOfBranch &&
-                                    formik.errors.ListOfBranch
-                                  }
-                                >
-                                  {ListOfBranches.map((ListOfBranch) => (
-                                    <MenuItem
-                                      key={ListOfBranch}
-                                      value={ListOfBranch}
-                                    >
-                                      {ListOfBranch}
-                                    </MenuItem>
-                                  ))}
-                                </TextField>
+                                <Card>
+                                  <CardActionArea
+                                    component={RouterLink}
+                                    to={`/${ROOT_ROUTE}/${ORGANIZATION_BRANCHES_ROUTE}`}
+                                  >
+                                    <CardHeader
+                                      avatar={
+                                        <Avatar aria-label="branchList icon">
+                                          <ForwardIcon />
+                                        </Avatar>
+                                      }
+                                    />
+                                    <CardContent>
+                                      <Typography
+                                        variant="h6"
+                                        component="div"
+                                        sx={{ flexGrow: 1 }}
+                                      >
+                                        {t(
+                                          'organizationManagement.branchLists.faq.label',
+                                        )}
+                                      </Typography>
+                                    </CardContent>
+                                  </CardActionArea>
+                                </Card>
                               </DialogContent>
                             </Box>
                           </Box>
@@ -385,14 +396,6 @@ const OrganizationAddress = ({
             </Box>
           </Grid>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={onClose}>{t('common.cancel')}</Button>
-          <LoadingButton loading={processing} type="submit" variant="contained">
-            {editMode
-              ? t('organizationManagement.modal.edit.action')
-              : t('organizationManagement.modal.add.action')}
-          </LoadingButton>
-        </DialogActions>
       </form>
     </Dialog>
   )

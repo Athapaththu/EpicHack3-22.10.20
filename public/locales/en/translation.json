@@ -678,6 +678,21 @@
       "website": {
         "label": "Website"
       }
+    },
+    "branchLists": {
+      "faq": {
+        "label": "click for the list of branches",
+        "title":" List of Branches",
+        "type":" Type",
+        "countryName":" Country Name",
+        "userName":" User Name",
+        "noAnswerLink": "get back to the Organizations  >>>>"
+      },
+      "branch": {
+        "type": " local branches",
+        "countryName": "Myanmar",
+        "userName": "nissan"
+      }
     }
   },
 

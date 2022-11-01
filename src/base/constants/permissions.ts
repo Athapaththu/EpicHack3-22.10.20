@@ -24,8 +24,9 @@ export const COUNTRY_MANAGEMENT_PERMISSION = 'COUNTRY_MANAGEMENT'
 
 // Organization  routes
 export const ORGANIZATION_MANAGEMENT_PERMISSION = 'ORGANIZATION_MANAGEMENT'
+export const ORGANIZATION_BRANCHES_PERMISSION = 'branches'
 
-// Organization  routes
+// Question  routes
 export const QUESTION_MANAGEMENT_PERMISSION = 'QUESTION_MANAGEMENT'
 
 // Report routes
