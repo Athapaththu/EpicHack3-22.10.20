@@ -1,4 +1,5 @@
 import DeleteIcon from '@mui/icons-material/Delete'
+import DnsOutlinedIcon from '@mui/icons-material/DnsOutlined'
 import EditIcon from '@mui/icons-material/Edit'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import RoofingSharpIcon from '@mui/icons-material/RoofingSharp'
@@ -53,6 +54,7 @@ const headCells: HeadCell[] = [
 
 interface EnhancedTableProps {
   numSelected: number
+  // eslint-disable-next-line no-unused-vars
   onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void
   rowCount: number
 }
@@ -93,9 +95,14 @@ function EnhancedTableHead({
 
 type OrganizationRowProps = {
   index: number
+  // eslint-disable-next-line no-unused-vars
   onCheck: (id: string) => void
+  // eslint-disable-next-line no-unused-vars
   onDelete: (organizationIds: string[]) => void
+  // eslint-disable-next-line no-unused-vars
   onEdit: (organization: IOrganization) => void
+  // eslint-disable-next-line no-unused-vars
+  onAddBranch: (organizationId: string) => void
   processing: boolean
   selected: boolean
   organization: IOrganization
@@ -106,6 +113,7 @@ const OrganizationRow = ({
   onCheck,
   onDelete,
   onEdit,
+  onAddBranch,
   processing,
   selected,
   organization,
@@ -124,14 +132,17 @@ const OrganizationRow = ({
     setAnchorEl(null)
   }
 
-  const handleDelete = () => {
-    handleCloseActions()
-    onDelete([organization.id])
-  }
-
   const handleEdit = () => {
     handleCloseActions()
     onEdit(organization)
+  }
+  const handleBranch = () => {
+    handleCloseActions()
+    onAddBranch(organization.id)
+  }
+  const handleDelete = () => {
+    handleCloseActions()
+    onDelete([organization.id])
   }
 
   return (
@@ -223,6 +234,12 @@ const OrganizationRow = ({
             </ListItemIcon>{' '}
             {t('common.edit')}
           </MenuItem>
+          <MenuItem onClick={handleBranch}>
+            <ListItemIcon>
+              <DnsOutlinedIcon />
+            </ListItemIcon>{' '}
+            {t('common.branch')}
+          </MenuItem>
           <MenuItem onClick={handleDelete}>
             <ListItemIcon>
               <DeleteIcon />
@@ -237,8 +254,13 @@ const OrganizationRow = ({
 
 type OrganizationTableProps = {
   processing: boolean
+  // eslint-disable-next-line no-unused-vars
   onDelete: (organizationIds: string[]) => void
+  // eslint-disable-next-line no-unused-vars
   onEdit: (organization: IOrganization) => void
+  // eslint-disable-next-line no-unused-vars
+  onAddBranch: (organizationId: string) => void
+  // eslint-disable-next-line no-unused-vars
   onSelectedChange: (selected: string[]) => void
   selected: string[]
   organizations?: IOrganization[]
@@ -247,6 +269,7 @@ type OrganizationTableProps = {
 const OrganizationTable = ({
   onDelete,
   onEdit,
+  onAddBranch,
   onSelectedChange,
   processing,
   selected,
@@ -312,6 +335,7 @@ const OrganizationTable = ({
                   onCheck={handleClick}
                   onDelete={onDelete}
                   onEdit={onEdit}
+                  onAddBranch={onAddBranch}
                   processing={processing}
                   selected={isSelected(organization.id)}
                   organization={organization}

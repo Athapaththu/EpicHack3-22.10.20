@@ -10,6 +10,8 @@ export interface IBaseCountry {
   newCountry: string
   isoCode: string
   name: string
+  website: string
+  contactNumber: string
 }
 export interface ICountry extends IBaseCountry {
   disabled: boolean

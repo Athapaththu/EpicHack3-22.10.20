@@ -180,6 +180,7 @@
     "confirm": "Confirm",
     "confirmation": "Confirmation",
     "delete": "Delete",
+    "branch":"Branch",
     "edit": "Edit",
     "errors": {
       "forbidden": {
@@ -569,8 +570,14 @@
         "label": "Description"
       },
       "vision": {
-      "label": "  vision / mission "
+      "label": "  vision"
       },
+      "mission": {
+        "label": "Mission "
+        },
+      "category": {
+          "label": "Category"
+          },
       "website": {
         "label": "website"
       },
@@ -591,6 +598,9 @@
       },
       "contactNumber": {
         "label": "Contact Number"
+      },
+      "ListOfBranch": {
+        "label": "List Of Branches"
       }
     },
     "modal": {
@@ -635,6 +645,38 @@
       },
       "branch": {
         "label": "List Of Branches"
+      }
+    },
+    "branch": {
+      "add": {
+        "title": "Edit Branchier"
+      },
+      "branchType": {
+        "label": "Branch Type"
+      },
+      "contactPerson": {
+        "label": "Contact Person"
+      },
+      "countryName": {
+        "label": "Country Name"
+      },
+      "addressLine": {
+        "label": "Address Line"
+      },
+      "street": {
+        "label": "Street"
+      },
+      "city": {
+        "label": "City"
+      },
+      "postalCode": {
+        "label": "Postal Code"
+      },
+      "email": {
+        "label": "Email"
+      },
+      "website": {
+        "label": "Website"
       }
     }
   },

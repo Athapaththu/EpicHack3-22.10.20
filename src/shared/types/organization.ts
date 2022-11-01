@@ -12,6 +12,8 @@ export interface IBaseOrganization {
   description: string
   registerNo: string
   vision: string
+  mission: string
+  category: string
   geographicArea: string
   departmentName: string
   designation: string
@@ -20,6 +22,13 @@ export interface IBaseOrganization {
 }
 
 export interface IOrganization extends IBaseOrganization {
+  branchType: any
+  city: any
+  postalCode: any
+  street: any
+  addressLine: any
+  contactPerson: any
+  mission: any
   disabled: boolean
   gender?: 'F' | 'M' | 'NC'
 }

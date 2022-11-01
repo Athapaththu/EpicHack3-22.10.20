@@ -8,6 +8,8 @@ import BaseToolbar from '../../../base/components/BaseToolbar'
 import ConfirmDialog from '../../../core/components/ConfirmDialog'
 import SelectToolbar from '../../../core/components/SelectToolbar'
 import { useSnackbar } from '../../../core/contexts/SnackbarProvider'
+import { IAddress } from '../../../shared/types/address'
+import OrganizationAddress from '../components/OrganizationAddress'
 import OrganizationDialog from '../components/OrganizationDialog'
 import OrganizationTable from '../components/OrganizationTable'
 import { useAddOrganization } from '../hooks/useAddOrganization'
@@ -21,7 +23,10 @@ const OrganizationOrganization = (): JSX.Element => {
   const { t } = useTranslation()
 
   const [openConfirmDeleteDialog, setOpenConfirmDeleteDialog] = useState(false)
-  const [openOrganizationDialog, setOpenOrganizationDialog] = useState(false)
+  const [openOrganizationDialog, setOpenOrganizationDialog] =
+    useState<boolean>(false)
+  const [openOrganizationAddress, setOpenOrganizationAddress] =
+    useState<boolean>(false)
   const [selected, setSelected] = useState<string[]>([])
   const [organizationDeleted, setOrganizationDeleted] = useState<string[]>([])
   // eslint-disable-next-line prettier/prettier
@@ -97,6 +102,9 @@ const OrganizationOrganization = (): JSX.Element => {
     setOrganizationDeleted(organizationIds)
     setOpenConfirmDeleteDialog(true)
   }
+  const handleOpenAddBranchDialog = (organizationId: string) => {
+    setOpenOrganizationAddress(true)
+  }
 
   const handleOpenOrganizationDialog = (organization?: IOrganization) => {
     setOrganizationUpdated(organization)
@@ -105,6 +113,10 @@ const OrganizationOrganization = (): JSX.Element => {
 
   const handleSelectedChange = (newSelected: string[]) => {
     setSelected(newSelected)
+  }
+
+  function handleAddAddress(organization: Partial<IAddress>): void {
+    throw new Error('Function not implemented.')
   }
 
   return (
@@ -135,6 +147,7 @@ const OrganizationOrganization = (): JSX.Element => {
         processing={processing}
         onDelete={handleOpenConfirmDeleteDialog}
         onEdit={handleOpenOrganizationDialog}
+        onAddBranch={handleOpenAddBranchDialog}
         onSelectedChange={handleSelectedChange}
         selected={selected}
         organizations={data}
@@ -155,6 +168,19 @@ const OrganizationOrganization = (): JSX.Element => {
           open={openOrganizationDialog}
           processing={processing}
           organization={organizationUpdated}
+        />
+      )}
+
+      {openOrganizationAddress && (
+        <OrganizationAddress
+          onAdd={handleAddAddress}
+          onUpdate={() => {
+            console.log('onUpdate')
+          }}
+          onClose={handleCloseOrganizationDialog}
+          open={openOrganizationAddress}
+          processing={processing}
+          selected={true}
         />
       )}
     </React.Fragment>

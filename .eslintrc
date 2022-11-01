@@ -29,6 +29,11 @@
     "@typescript-eslint/no-non-null-assertion": "error",
     "indent": "off",
     "@typescript-eslint/indent": ["error", 2],
-    "quotes": ["error", "single"]
+    "quotes": ["error", "single"],
+    "prettier/prettier": 
+    [ "error",
+      {
+        "endOfLine": "auto"}
+    ]
   }
 }

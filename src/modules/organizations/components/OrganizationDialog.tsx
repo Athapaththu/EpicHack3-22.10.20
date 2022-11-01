@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { LoadingButton } from '@mui/lab'
 import TabContext from '@mui/lab/TabContext'
 import TabList from '@mui/lab/TabList'
@@ -21,12 +22,27 @@ import * as Yup from 'yup'
 
 import { IOrganization } from '../types/organization'
 
+const countryNames = [
+  'National',
+  'Provincial',
+  'District',
+  'City/Municipality',
+  'Village',
+]
 const organizationTypes = [
   'Government',
   'Semi-Government',
   'Non-Government',
   'Private',
   'Other',
+]
+
+const geographicAreas = [
+  'National',
+  'Provincial',
+  'District',
+  'City/Municipality',
+  'Village',
 ]
 
 type OrganizationDialogProps = {
@@ -68,6 +84,8 @@ const OrganizationDialog = ({
       countryName: organization ? organization.countryName : '',
       organizationType: organization ? organization.organizationType : '',
       vision: organization ? organization.vision : '',
+      mission: organization ? organization.mission : '',
+      category: organization ? organization.category : '',
       geographicArea: organization ? organization.geographicArea : '',
       departmentName: organization ? organization.departmentName : '',
       designation: organization ? organization.designation : '',
@@ -90,7 +108,13 @@ const OrganizationDialog = ({
       registerNo: Yup.string()
         .max(20, t('common.validations.max', { size: 20 }))
         .required(t('common.validations.required')),
+      category: Yup.string()
+        .max(20, t('common.validations.max', { size: 20 }))
+        .required(t('common.validations.required')),
       vision: Yup.string()
+        .max(20, t('common.validations.max', { size: 20 }))
+        .required(t('common.validations.required')),
+      mission: Yup.string()
         .max(20, t('common.validations.max', { size: 20 }))
         .required(t('common.validations.required')),
       departmentName: Yup.string()
@@ -107,7 +131,7 @@ const OrganizationDialog = ({
       website: Yup.string().required(t('common.validations.required')),
     }),
     onSubmit: handleSubmit,
-  })
+  });
 
   const [value, setValue] = React.useState('1')
 
@@ -140,8 +164,7 @@ const OrganizationDialog = ({
                       <Tab label="Organizations" value="1" />
                       <Tab label="Departments" value="2" />
                       <Tab label="Designations" value="3" />
-                      <Tab label="Locations" value="4" />
-                      <Tab label="List Of Branches" value="5" />
+                      <Tab label="List Of Branches" value="4" />
                     </TabList>
                   </Box>
 
@@ -153,15 +176,14 @@ const OrganizationDialog = ({
                         <TextField
                           margin="normal"
                           required
-                          fullWidth
                           id="countryName"
+                          disabled={processing}
+                          fullWidth
+                          select
                           label={t(
                             'organizationManagement.form.countryName.label',
                           )}
                           name="countryName"
-                          autoComplete="family-name"
-                          autoFocus
-                          disabled={processing}
                           value={formik.values.countryName}
                           onChange={formik.handleChange}
                           error={
@@ -171,6 +193,33 @@ const OrganizationDialog = ({
                           helperText={
                             formik.touched.countryName &&
                             formik.errors.countryName
+                          }
+                        >
+                          {countryNames.map((countryName) => (
+                            <MenuItem key={countryName} value={countryName}>
+                              {countryName}
+                            </MenuItem>
+                          ))}
+                        </TextField>
+                        <TextField
+                          margin="normal"
+                          required
+                          fullWidth
+                          id="category"
+                          label={t(
+                            'organizationManagement.form.category.label',
+                          )}
+                          name="category"
+                          autoComplete="given-name"
+                          disabled={processing}
+                          value={formik.values.category}
+                          onChange={formik.handleChange}
+                          error={
+                            formik.touched.category &&
+                            Boolean(formik.errors.category)
+                          }
+                          helperText={
+                            formik.touched.category && formik.errors.category
                           }
                         />
                         <TextField
@@ -205,6 +254,8 @@ const OrganizationDialog = ({
                           )}
                           name="description"
                           autoComplete="given-name"
+                          multiline
+                          minRows={4}
                           disabled={processing}
                           value={formik.values.description}
                           onChange={formik.handleChange}
@@ -247,6 +298,8 @@ const OrganizationDialog = ({
                           label={t('organizationManagement.form.vision.label')}
                           name="vision"
                           autoComplete="given-name"
+                          multiline
+                          minRows={4}
                           disabled={processing}
                           value={formik.values.vision}
                           onChange={formik.handleChange}
@@ -261,6 +314,27 @@ const OrganizationDialog = ({
                         <TextField
                           margin="normal"
                           required
+                          fullWidth
+                          id="mission"
+                          label={t('organizationManagement.form.mission.label')}
+                          name="mission"
+                          autoComplete="given-name"
+                          multiline
+                          minRows={4}
+                          disabled={processing}
+                          value={formik.values.mission}
+                          onChange={formik.handleChange}
+                          error={
+                            formik.touched.mission &&
+                            Boolean(formik.errors.mission)
+                          }
+                          helperText={
+                            formik.touched.mission && formik.errors.mission
+                          }
+                        />
+                        <TextField
+                          margin="normal"
+                          required
                           id="organizationType"
                           disabled={processing}
                           fullWidth
@@ -292,104 +366,39 @@ const OrganizationDialog = ({
                         <TextField
                           margin="normal"
                           required
-                          id="organizationType"
+                          id="geographicArea"
                           disabled={processing}
                           fullWidth
                           select
                           label={t(
-                            'organizationManagement.form.organizationType.label',
+                            'organizationManagement.form.geographicArea.label',
                           )}
-                          name="organizationType"
-                          value={formik.values.organizationType}
+                          name="geographicArea"
+                          value={formik.values.geographicArea}
                           onChange={formik.handleChange}
                           error={
-                            formik.touched.organizationType &&
-                            Boolean(formik.errors.organizationType)
+                            formik.touched.geographicArea &&
+                            Boolean(formik.errors.geographicArea)
                           }
                           helperText={
-                            formik.touched.organizationType &&
-                            formik.errors.organizationType
+                            formik.touched.geographicArea &&
+                            formik.errors.geographicArea
                           }
                         >
-                          {organizationTypes.map((organizationType) => (
+                          {geographicAreas.map((geographicArea) => (
                             <MenuItem
-                              key={organizationType}
-                              value={organizationType}
+                              key={geographicArea}
+                              value={geographicArea}
                             >
-                              {organizationType}
+                              {geographicArea}
                             </MenuItem>
                           ))}
                         </TextField>
-                      </DialogContent>
-                    </form>
-                  </TabPanel>
-                  {/* tab 2 */}
-                  <TabPanel value="2">
-                    <form onSubmit={formik.handleSubmit} noValidate>
-                      <DialogContent>
-                        <TextField
-                          margin="normal"
-                          required
-                          fullWidth
-                          id="departmentName"
-                          label={t(
-                            'organizationManagement.form.departmentName.label',
-                          )}
-                          name="departmentName"
-                          autoComplete="given-name"
-                          disabled={processing}
-                          value={formik.values.departmentName}
-                          onChange={formik.handleChange}
-                          error={
-                            formik.touched.departmentName &&
-                            Boolean(formik.errors.departmentName)
-                          }
-                          helperText={
-                            formik.touched.departmentName &&
-                            formik.errors.departmentName
-                          }
-                        />
-                      </DialogContent>
-                    </form>
-                  </TabPanel>
-                  {/* tab 3 */}
-                  <TabPanel value="3">
-                    <form onSubmit={formik.handleSubmit} noValidate>
-                      <DialogContent>
-                        <TextField
-                          margin="normal"
-                          required
-                          fullWidth
-                          id="designation"
-                          label={t(
-                            'organizationManagement.form.designation.label',
-                          )}
-                          name="designation"
-                          autoComplete="given-name"
-                          disabled={processing}
-                          value={formik.values.designation}
-                          onChange={formik.handleChange}
-                          error={
-                            formik.touched.designation &&
-                            Boolean(formik.errors.designation)
-                          }
-                          helperText={
-                            formik.touched.designation &&
-                            formik.errors.designation
-                          }
-                        />
-                      </DialogContent>
-                    </form>
-                  </TabPanel>
-                  {/* tab 4 */}
-                  <TabPanel value="4">
-                    <form onSubmit={formik.handleSubmit} noValidate>
-                      <DialogTitle>
-                        {editMode
-                          ? t('organizationManagement.topic.headOffice.label')
-                          : t('organizationManagement.topic.headOffice.label')}
-                      </DialogTitle>
-                      <DialogContent>
+                        <DialogTitle  sx={{ m: 1 }}>
+                          {editMode
+                            ? t('organizationManagement.topic.headOffice.label')
+                            : t('organizationManagement.topic.headOffice.label')}
+                        </DialogTitle>
                         <TextField
                           margin="normal"
                           required
@@ -453,8 +462,66 @@ const OrganizationDialog = ({
                       </DialogContent>
                     </form>
                   </TabPanel>
-                  {/* tab 5 */}
-                  <TabPanel value="5">
+                  {/* tab 2 */}
+                  <TabPanel value="2">
+                    <form onSubmit={formik.handleSubmit} noValidate>
+                      <DialogContent>
+                        <TextField
+                          margin="normal"
+                          required
+                          fullWidth
+                          id="departmentName"
+                          label={t(
+                            'organizationManagement.form.departmentName.label',
+                          )}
+                          name="departmentName"
+                          autoComplete="given-name"
+                          disabled={processing}
+                          value={formik.values.departmentName}
+                          onChange={formik.handleChange}
+                          error={
+                            formik.touched.departmentName &&
+                            Boolean(formik.errors.departmentName)
+                          }
+                          helperText={
+                            formik.touched.departmentName &&
+                            formik.errors.departmentName
+                          }
+                        />
+                      </DialogContent>
+                    </form>
+                  </TabPanel>
+                  {/* tab 3 */}
+                  <TabPanel value="3">
+                    <form onSubmit={formik.handleSubmit} noValidate>
+                      <DialogContent>
+                        <TextField
+                          margin="normal"
+                          required
+                          fullWidth
+                          id="designation"
+                          label={t(
+                            'organizationManagement.form.designation.label',
+                          )}
+                          name="designation"
+                          autoComplete="given-name"
+                          disabled={processing}
+                          value={formik.values.designation}
+                          onChange={formik.handleChange}
+                          error={
+                            formik.touched.designation &&
+                            Boolean(formik.errors.designation)
+                          }
+                          helperText={
+                            formik.touched.designation &&
+                            formik.errors.designation
+                          }
+                        />
+                      </DialogContent>
+                    </form>
+                  </TabPanel>
+                  {/* tab 4 */}
+                  <TabPanel value="4">
                     <form onSubmit={formik.handleSubmit} noValidate>
                       <DialogTitle>
                         {editMode
